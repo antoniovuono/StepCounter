@@ -1,31 +1,25 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 
-const Value = () => (
-  <View style={styles.valueContainer}>
-    <Text style={styles.label}>Steps</Text>
-    <Text style={styles.value}>1211</Text>
+type ValueProps = {
+  label: string;
+  value: string;
+};
+
+const Value = ({ label, value }: ValueProps) => (
+  <View>
+    <Text style={styles.label}>{label}</Text>
+    <Text style={styles.value}>{value}</Text>
   </View>
 );
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row" }}>
-        <View style={styles.valueContainer}>
-          <Text style={styles.label}>Steps</Text>
-          <Text style={styles.value}>1211</Text>
-        </View>
-
-        <View style={styles.valueContainer}>
-          <Text style={styles.label}>Distance</Text>
-          <Text style={styles.value}>0,75 km</Text>
-        </View>
-      </View>
-
-      <View style={styles.valueContainer}>
-        <Text style={styles.label}>Flights Climbed</Text>
-        <Text style={styles.value}>Steps</Text>
+      <View style={styles.values}>
+        <Value label="Steps" value="1231" />
+        <Value label="Distance" value="0,75 km" />
+        <Value label="Flights Climbed" value="Steps" />
       </View>
 
       <StatusBar style="auto" />
@@ -40,16 +34,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 12,
   },
-  valueContainer: {
-    marginRight: 50,
-    marginVertical: 10,
+  values: {
+    flexDirection: "row",
+    gap: 25,
+    flexWrap: "wrap",
   },
   label: {
     color: "white",
     fontSize: 20,
   },
   value: {
-    fontSize: 35,
+    fontSize: 45,
     color: "#AFB3BE",
     fontWeight: "500",
   },
