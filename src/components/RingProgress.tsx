@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { View, Text } from "react-native";
-import SVG, { Circle } from "react-native-svg";
+import { View } from "react-native";
+import SVG, { Circle, CircleProps } from "react-native-svg";
 import Animated, {
   useAnimatedProps,
   useSharedValue,
-  withSpring,
   withTiming,
 } from "react-native-reanimated";
 
@@ -40,6 +39,18 @@ export const RingProgress = ({
     strokeDasharray: [circumference * fill.value, circumference],
   }));
 
+  const circleDefaultProps: CircleProps = {
+    r: innerRadius,
+    cx: radius,
+    cy: radius,
+    originX: radius,
+    originY: radius,
+    strokeWidth: strokeWidth,
+    stroke: color,
+    strokeLinecap: "round",
+    rotation: "-90",
+  };
+
   return (
     <View
       style={{
@@ -49,27 +60,9 @@ export const RingProgress = ({
       }}
     >
       <SVG>
-        <AnimatedCircle
-          r={innerRadius}
-          cx={radius}
-          cy={radius}
-          originX={radius}
-          originY={radius}
-          strokeWidth={strokeWidth}
-          stroke={color}
-          strokeLinecap="round"
-          rotation="-90"
-          animatedProps={animatedProps}
-        />
+        <AnimatedCircle animatedProps={animatedProps} {...circleDefaultProps} />
 
-        <Circle
-          r={innerRadius}
-          cx={radius}
-          cy={radius}
-          strokeWidth={strokeWidth}
-          stroke={color}
-          opacity={0.2}
-        />
+        <Circle {...circleDefaultProps} opacity={0.2} />
       </SVG>
     </View>
   );
