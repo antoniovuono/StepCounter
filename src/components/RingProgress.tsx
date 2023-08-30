@@ -24,7 +24,9 @@ export const RingProgress = ({
   strokeWidth = 35,
   progress,
 }: RingProgressProps) => {
+  // Cálculo do raio interno.
   const innerRadius = radius - strokeWidth / 2;
+  // Calculo do comprimento do círculo.
   const circumference = 2 * Math.PI * innerRadius;
 
   // É o estado inicial da animação
@@ -62,7 +64,6 @@ export const RingProgress = ({
     >
       <SVG>
         <AnimatedCircle animatedProps={animatedProps} {...circleDefaultProps} />
-
         <Circle {...circleDefaultProps} opacity={0.2} />
       </SVG>
 
