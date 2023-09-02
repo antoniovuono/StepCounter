@@ -5,7 +5,7 @@ import AppleHealthKit, {
 } from "react-native-health";
 import { useEffect, useState } from "react";
 
-const useHealthData = () => {
+const useHealthData = (date: Date) => {
   const [hasPermissions, setHasPermissions] = useState(false);
   const [steps, setSteps] = useState(0);
   const [flights, setFlights] = useState(0);
@@ -40,7 +40,7 @@ const useHealthData = () => {
 
     // Healthkit Options
     const options: HealthInputOptions = {
-      date: new Date().toISOString(),
+      date: date.toISOString(),
       includeManuallyAdded: false,
     };
 

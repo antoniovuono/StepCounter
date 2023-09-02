@@ -5,9 +5,10 @@ import { RingProgress } from "./src/components/RingProgress";
 import useHealthData from "./src/hooks/useHealthData";
 
 const STEPS_GOAL = 10_000;
+const CURRENT_DATE = new Date();
 
 export default function App() {
-  const { steps, distance, flights } = useHealthData();
+  const { steps, distance, flights } = useHealthData(CURRENT_DATE);
 
   return (
     <View style={styles.container}>
