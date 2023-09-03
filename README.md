@@ -6,7 +6,7 @@ Para coletar os dados do dispostivo IOS usamos a biblioteca [React Native Health
 
 ## Foto do app:
 
-[!imagem do app](./assets/showcase.png)
+![imagem do app](./assets/showcase.png)
 
 ---
 
