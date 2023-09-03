@@ -4,6 +4,18 @@ import AppleHealthKit, {
   HealthUnit,
 } from "react-native-health";
 import { useEffect, useState } from "react";
+import { Platform } from "react-native";
+
+const permissions: HealthKitPermissions = {
+  permissions: {
+    read: [
+      AppleHealthKit.Constants.Permissions.Steps,
+      AppleHealthKit.Constants.Permissions.FlightsClimbed,
+      AppleHealthKit.Constants.Permissions.DistanceWalkingRunning,
+    ],
+    write: [],
+  },
+};
 
 const useHealthData = (date: Date) => {
   const [hasPermissions, setHasPermissions] = useState(false);
@@ -11,25 +23,30 @@ const useHealthData = (date: Date) => {
   const [flights, setFlights] = useState(0);
   const [distance, setDistance] = useState(0);
 
-  const permissions: HealthKitPermissions = {
-    permissions: {
-      read: [
-        AppleHealthKit.Constants.Permissions.Steps,
-        AppleHealthKit.Constants.Permissions.FlightsClimbed,
-        AppleHealthKit.Constants.Permissions.DistanceWalkingRunning,
-      ],
-      write: [],
-    },
-  };
-
   useEffect(() => {
-    AppleHealthKit.initHealthKit(permissions, (err) => {
+    if (Platform.OS !== "ios") {
+      return;
+    }
+
+    AppleHealthKit.isAvailable((err, isAvailable) => {
       if (err) {
-        console.error("Error getting permissions");
+        console.log("Error checking availability");
         return;
       }
 
-      setHasPermissions(true);
+      if (!isAvailable) {
+        console.log("Apple Health not available");
+        return;
+      }
+
+      AppleHealthKit.initHealthKit(permissions, (err) => {
+        if (err) {
+          console.error("Error getting permissions");
+          return;
+        }
+
+        setHasPermissions(true);
+      });
     });
   });
 
